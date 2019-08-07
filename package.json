@@ -5,7 +5,13 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel --presets react src/index.jsx"
+    "build-dist-js-min": "webpack --mode=production --config webpack/dist-min.conf.js --progress --colors",
+    "build-dist-js": "webpack --mode=production --config webpack/dist.conf.js --progress --colors",
+    "build-dist": "rm -rf dist && npm run build-dist-js && npm run build-dist-js-min",
+    "build-lib": "rm -rf lib && babel src -d lib",
+    "build": "npm run build-lib && npm run build-dist",
+    "dev-server": "webpack-dev-server --config webpack/dev.conf.js --progress --colors --hot --inline",
+    "start": "npm run dev-server"
   },
   "author": {
     "name": "Rômulo Cabral Santos",
@@ -20,13 +26,28 @@
     "classnames": "^2.2.6"
   },
   "peerDependencies": {
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-react": "^6.24.1",
-    "eslint": "^6.1.0"
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.1.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
   }
 }

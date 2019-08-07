@@ -1,8 +1,9 @@
 import classnames from 'classnames';
-import { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React,{ Component } from 'react';
+import { HashRouter,Link } from 'react-router-dom';
 
-export default class RouterHistory extends Component {
+class RouterHistory extends Component {
 	constructor(props){
 		super(props)
 	}
@@ -53,6 +54,7 @@ export default class RouterHistory extends Component {
 					</a>
 				)
 				: (
+					<HashRouter>
 					<Link
 						className={classnames(
 							className,
@@ -62,7 +64,27 @@ export default class RouterHistory extends Component {
 					>
 						{children}
 					</Link>
+					</HashRouter>
 				)
 		); 
 	}
 }
+
+RouterHistory.propTypes = {
+	className: PropTypes.string.isRequired,
+	classNameActive: PropTypes.string.isRequired,
+	classNameHasActiveChild: PropTypes.string.isRequired,
+	active: PropTypes.bool.isRequired,
+	hasActiveChild: PropTypes.bool.isRequired,
+	to: PropTypes.string.isRequired,
+	externalLink: PropTypes.bool,
+	hasSubMenu: PropTypes.bool.isRequired,
+	toggleSubMenu: PropTypes.func,
+	activateMe: PropTypes.func.isRequired,
+	children: PropTypes.oneOfType([
+		PropTypes.element,
+		PropTypes.array,
+	]).isRequired,
+};
+
+export default RouterHistory;
