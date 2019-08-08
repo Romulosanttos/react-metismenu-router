@@ -9,19 +9,21 @@ class RouterHistory extends Component {
 	}
 	componentDidMount() {
 		this.to = this.props.to;
-		if (this.to[0] !== '/') this.to = `/${this.to}`;
-		let destiny = this.props.history.location.state;
-		if(destiny){
-			destiny = destiny.from.hash.split('#')[1]
-		}
-		this.onLocationChange(destiny);
+		if (this.to && this.to[0] !== '/') this.to = `/${this.to}`;
+		
+		this.onLocationChange({
+			history:this.props.history,
+			to: this.to
+		});
 	}
 	
-	onLocationChange(destiny) {
-		if ((destiny || '/') === this.to) {
+	onLocationChange({
+		history,
+		to
+	}) {
+		const { location } = history;
+		if(location.pathname === to){	
 			this.props.activateMe();
-		}else if(destiny){
-			this.props.history.replace(destiny)
 		}
 	}
 
